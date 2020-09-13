@@ -20,6 +20,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import {environment} from '../environments/environment';
 import {ServiceWorkerModule} from '@angular/service-worker';
+import { LoginComponent } from './login/login.component';
+import { MyTattoosComponent } from './my-tattoos/my-tattoos.component';
 
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -32,7 +34,9 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent,
+    MyTattoosComponent
   ],
   imports: [
     BrowserModule,
