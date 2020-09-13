@@ -22,6 +22,10 @@ import {environment} from '../environments/environment';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import { LoginComponent } from './login/login.component';
 import { MyTattoosComponent } from './my-tattoos/my-tattoos.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -43,6 +47,13 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireAuthGuardModule,
+    AngularFirestoreModule,
+
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
