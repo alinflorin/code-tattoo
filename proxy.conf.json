@@ -1,11 +1,3 @@
 {
-  "/api": {
-    "target": "https://gateway",
-    "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": false,
-    "headers": {
-      "X-Forwarded-Proto": "https"
-    }
-  }
+  
 }
