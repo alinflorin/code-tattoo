@@ -27,6 +27,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SignupComponent } from './signup/signup.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -49,6 +50,7 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
