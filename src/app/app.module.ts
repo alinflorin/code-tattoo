@@ -28,6 +28,8 @@ import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -74,6 +76,8 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     MatSnackBarModule,
     MatMenuModule,
     MatButtonModule,
+    MatInputModule,
+    MatDividerModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

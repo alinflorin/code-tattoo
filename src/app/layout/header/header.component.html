@@ -9,6 +9,10 @@
           <mat-icon>language</mat-icon>
           <span>{{'ui.header.language' | translate }}</span>
         </button>
+        <button mat-menu-item *ngIf="auth.user | async" (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>{{'ui.header.logout' | translate }}</span>
+        </button>
       </mat-menu>
       <mat-menu #languages="matMenu">
         <button mat-menu-item *ngFor="let lang of translateService.langs" 

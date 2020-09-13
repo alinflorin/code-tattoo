@@ -1,8 +1,31 @@
 <div fxLayout="row" class="h-100 w-100" fxLayoutAlign="center center">
 	<div fxFlex="100%" fxFlex.gt-xs="80%" fxFlex.gt-md="50%" fxLayout="column" fxLayoutGap="1rem">
 		<div class="mat-display-1">Login</div>
-    <form novalidate [formGroup]="loginForm">
-      asd
-    </form>
+		<form fxLayout="column" fxLayoutGap="1rem" novalidate [formGroup]="loginForm" (submit)="loginWithEmail()">
+			<mat-form-field class="w-100">
+				<mat-label>E-Mail</mat-label>
+				<input matInput type="email" formControlName="email" />
+				<mat-error *ngIf="loginForm.controls.email.hasError('required')">E-Mail is required</mat-error>
+				<mat-error *ngIf="loginForm.controls.email.hasError('email')">E-Mail is invalid</mat-error>
+				<mat-error *ngIf="loginForm.controls.email.hasError('minlength')">E-Mail is too short. Minimum length:
+					{{loginForm.controls.email.errors.minlength.requiredLength}}</mat-error>
+			</mat-form-field>
+			<mat-form-field class="w-100">
+				<mat-label>Password</mat-label>
+				<input matInput type="password" formControlName="password" />
+				<mat-error *ngIf="loginForm.controls.password.hasError('required')">Password is required</mat-error>
+				<mat-error *ngIf="loginForm.controls.password.hasError('minlength')">Password is too short. Minimum
+					length: {{loginForm.controls.password.errors.minlength.requiredLength}}</mat-error>
+			</mat-form-field>
+			<div fxLayout="row" fxLayoutAlign="center center">
+				<button [disabled]="!loginForm.valid" mat-raised-button color="accent" type="submit">Login</button>
+			</div>
+		</form>
+		<mat-divider></mat-divider>
+		<div fxLayout="row" fxLayoutAlign="space-evenly">
+			<button (click)="loginWithGoogle()" class="big-icon-button" mat-icon-button color="accent"><mat-icon svgIcon="google"></mat-icon></button>
+			<button (click)="loginWithFacebook()" class="big-icon-button" mat-icon-button color="accent"><mat-icon svgIcon="facebook"></mat-icon></button>
+			<button (click)="loginWithGithub()" class="big-icon-button" mat-icon-button color="accent"><mat-icon svgIcon="github"></mat-icon></button>
+		</div>
 	</div>
 </div>
