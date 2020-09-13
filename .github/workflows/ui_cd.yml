@@ -1,0 +1,61 @@
+name: UI_CD
+
+on:
+  push:
+    branches: [ master,develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1.4.3
+        with:
+          node-version: '12.x'
+      
+      - uses: actions/cache@v2
+        with:
+          path: 'node_modules'
+          key: ${{ runner.os }}-ui-nodemodules-${{ hashFiles('package.json') }}
+
+      - name: npm install
+        run: npm install
+      
+      - name: Build
+        run: npm run ng build -- --prod
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/ui/
+
+  deploy:
+    name: deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:   
+      - name: Download Artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: dist
+          
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1.4.3
+        with:
+          node-version: '12.x'
+          
+      - name: Create Firebase files
+        working-directory: dist
+        run: echo '{"hosting":{"headers":[{"source":"**/*.*","headers":[{"key":"Access-Control-Allow-Origin","value":"*"}]}],"site":"dev-week-quiz","public":".","rewrites":[{"source":"**","destination":"/index.html"}],"ignore":["firebase.json","**/node_modules/**"]}}' > firebase.json
+      
+      - name: Install Firebase deps
+        working-directory: dist
+        run: sudo npm i -g firebase-tools
+      
+      - name: Deploy to Firebase
+        working-directory: dist
+        run: sudo firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }} --project code-tattoo -f
