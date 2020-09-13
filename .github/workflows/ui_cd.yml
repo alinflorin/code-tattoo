@@ -50,7 +50,7 @@ jobs:
           
       - name: Create Firebase files
         working-directory: dist
-        run: echo '{"hosting":{"headers":[{"source":"**/*.*","headers":[{"key":"Access-Control-Allow-Origin","value":"*"}]}],"site":"dev-week-quiz","public":".","rewrites":[{"source":"**","destination":"/index.html"}],"ignore":["firebase.json","**/node_modules/**"]}}' > firebase.json
+        run: echo '{"hosting":{"headers":[{"source":"**/*.*","headers":[{"key":"Access-Control-Allow-Origin","value":"*"}]}],"site":"code-tattoo","public":".","rewrites":[{"source":"**","destination":"/index.html"}],"ignore":["firebase.json","**/node_modules/**"]}}' > firebase.json
       
       - name: Install Firebase deps
         working-directory: dist
