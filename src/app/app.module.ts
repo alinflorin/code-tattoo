@@ -26,6 +26,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { SignupComponent } from './signup/signup.component';
 
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -40,7 +41,8 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     HomeComponent,
     NotFoundComponent,
     LoginComponent,
-    MyTattoosComponent
+    MyTattoosComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
