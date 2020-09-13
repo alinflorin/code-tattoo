@@ -1,0 +1,11 @@
+name: ui
+image: blvckdev/node-okteto-dev
+workdir: /src
+command: ["npm", "run", "install-and-start"]
+forward:
+  - 4200:4200
+persistentVolume:
+  enabled: true
+  size: 1Gi
+volumes:
+  - /root/.npm

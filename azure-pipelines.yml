@@ -1,0 +1,49 @@
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+  paths:
+    exclude:
+      - '.stignore'
+      - 'okteto.yml'
+      - 'README.md'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.vscode/*'
+      - 'e2e/*'
+      - 'ssl/*'
+      - 'tslint.json'
+      - '.prettierrc'
+      - 'karma.conf.js'
+      - 'proxy.conf.json'
+      - '.editorconfig'
+      - 'tsconfig.spec.json'
+      - 'src/test.ts'
+      - 'src/hmr.ts'
+variables:
+  - name: majorAndMinor
+    value: 1.1
+  - name: patch
+    value: $[counter(variables['majorAndMinor'], 0)]
+  - name: version
+    value: '$(majorAndMinor).$(patch)'
+  - group: secrets
+  - ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+    - group: secrets-Production
+  - ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+    - group: secrets-Staging
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: core/templates
+extends:
+  template: deployable.yml@templates
+  parameters:
+      dockerRegistryHostname: ''
+      dockerRepository: thrivx/ui
+      kubeNamespace: thrivx
+      dockerRegistryServiceConnection: BLVCKDEV
+      version: $(version)

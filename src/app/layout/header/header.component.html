@@ -1,0 +1,18 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="start center" color="primary">
+    <span src="/assets/images/logo.png" routerLink="/" id="logo" class="clickable">APP</span>
+    <div fxFlex></div>
+    <button mat-icon-button [matMenuTriggerFor]="settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <mat-menu #settings="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="languages">
+          <mat-icon>language</mat-icon>
+          <span>{{'ui.header.language' | translate }}</span>
+        </button>
+      </mat-menu>
+      <mat-menu #languages="matMenu">
+        <button mat-menu-item *ngFor="let lang of translateService.langs" 
+        [style.font-weight]="translateService.currentLang === lang ? 'bold' : 'inherit'"
+        (click)="changeLanguage(lang)">{{lang}}</button>
+      </mat-menu>
+</mat-toolbar>

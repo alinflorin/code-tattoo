@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ui
+data:
+  Caddyfile: |
+    :80
+    root /srv
+    gzip
+    header / {
+      #Strict-Transport-Security "max-age=31536000;"
+      X-XSS-Protection "1; mode=block"
+      X-Content-Type-Options "nosniff"
+      X-Frame-Options "DENY"
+    }
+    mime .js text/javascript
+    rewrite {
+      to {path} {path}/ /
+    }
+    log stdout
+    errors stdout
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      terminationGracePeriodSeconds: 0
+      imagePullSecrets:
+        - name: docker-credentials
+      containers:
+        - name: ui
+          image: .../ui:develop
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: ui-config
+              mountPath: /etc/Caddyfile
+              subPath: Caddyfile
+      volumes:
+        - name: ui-config
+          configMap:
+            name: ui
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui
+spec:
+  selector:
+    app: ui
+  ports:
+    - port: 80
+      targetPort: 80
+      name: http
