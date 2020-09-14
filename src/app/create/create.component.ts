@@ -48,21 +48,29 @@ export class CreateComponent implements OnInit {
 
     this.tattoo.base64Qr = this.qrService.getBase64Svg(this.tattoo.content);
 
-    this.newTattooForm.valueChanges.subscribe((x: Tattoo) => {
+    this.newTattooForm.valueChanges.subscribe((x) => {
       if (x.content == null || x.content.length === 0) {
         this.tattoo.base64Qr = "/assets/images/question-mark.svg";
         return;
       }
-      if (x.base64Image == null || x.base64Image.length === 0) {
-        this.newTattooForm.controls.imageSizePercent.disable();
-      } else {
-        this.newTattooForm.controls.imageSizePercent.enable();
-      }
+      console.log(x);
       this.tattoo.base64Qr = this.qrService.getBase64Svg(
-          x.content,
-          x.base64Image,
-          x.imageSizePercent
-        );
+        x.content,
+        x.base64Image,
+        x.imageSizePercent
+      );
+    });
+
+    this.newTattooForm.controls.base64Image.valueChanges.subscribe(x => {
+      if (x == null || x.length === 0) {
+        this.newTattooForm.controls.imageSizePercent.disable({
+          emitEvent: false
+        });
+      } else {
+        this.newTattooForm.controls.imageSizePercent.enable({
+          emitEvent: false
+        });
+      }
     });
   }
 
