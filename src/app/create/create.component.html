@@ -29,8 +29,7 @@
 						</div>
 					</mat-form-field>
 
-					<mat-expansion-panel [expanded]="true" *ngIf="newTattooForm.controls.base64Image.value"
-						fxFlexLayout="column" fxLayoutGap="1rem">
+					<mat-expansion-panel [expanded]="true" *ngIf="newTattooForm.controls.base64Image.value">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								Image settings
@@ -39,18 +38,27 @@
 								Image-related settings
 							</mat-panel-description>
 						</mat-expansion-panel-header>
-						<mat-form-field class="w-100">
-							<mat-label>Image size (percentage)</mat-label>
-							<input matInput type="number" step="1" formControlName="imageSizePercent" />
-							<mat-error
-								*ngIf="newTattooForm.controls.imageSizePercent.hasError('min') || newTattooForm.controls.imageSizePercent.hasError('max')">
-								Image size percentage is invalid</mat-error>
-						</mat-form-field>
-						<mat-form-field>
-							<input matInput [ngxMatColorPicker]="picker" formControlName="fgColor">
-							<ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
-							<ngx-mat-color-picker #picker [touchUi]="true" color="accent"></ngx-mat-color-picker>
-						</mat-form-field>
+						<div fxFlexLayout="column" fxLayoutGap="1rem">
+							<mat-form-field class="w-100">
+								<mat-label>Image size (percentage)</mat-label>
+								<input matInput type="number" step="1" formControlName="imageSizePercent" />
+								<mat-error
+									*ngIf="newTattooForm.controls.imageSizePercent.hasError('min') || newTattooForm.controls.imageSizePercent.hasError('max')">
+									Image size percentage is invalid</mat-error>
+							</mat-form-field>
+							<mat-form-field>
+								<mat-label>Foregound color</mat-label>
+								<input matInput [ngxMatColorPicker]="fgpicker" formControlName="fgColor">
+								<ngx-mat-color-toggle matSuffix [for]="fgpicker"></ngx-mat-color-toggle>
+								<ngx-mat-color-picker #fgpicker [touchUi]="true" color="accent"></ngx-mat-color-picker>
+							</mat-form-field>
+							<mat-form-field>
+								<mat-label>Background color</mat-label>
+								<input matInput [ngxMatColorPicker]="bgpicker" formControlName="bgColor">
+								<ngx-mat-color-toggle matSuffix [for]="bgpicker"></ngx-mat-color-toggle>
+								<ngx-mat-color-picker #bgpicker [touchUi]="true" color="accent"></ngx-mat-color-picker>
+							</mat-form-field>
+						</div>
 					</mat-expansion-panel>
 
 					<div fxLayout="row" fxLayoutAlign="center center">
