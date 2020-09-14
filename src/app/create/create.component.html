@@ -5,30 +5,38 @@
 			<form novalidate [formGroup]="newTattooForm">
 				<mat-form-field class="w-100">
 					<mat-label>Name</mat-label>
-					<input matInput type="text" formControlName="name" />
+					<input required matInput type="text" formControlName="name" />
 					<mat-error *ngIf="newTattooForm.controls.name.hasError('required')">Name is required</mat-error>
 				</mat-form-field>
 				<mat-form-field class="w-100">
 					<mat-label>Content</mat-label>
-					<input matInput type="text" formControlName="content" />
-					<mat-error *ngIf="newTattooForm.controls.content.hasError('required')">Content is required</mat-error>
+					<input required matInput type="text" formControlName="content" />
+					<mat-error *ngIf="newTattooForm.controls.content.hasError('required')">Content is required
+					</mat-error>
 				</mat-form-field>
-        <mat-form-field class="w-100">
+				<mat-form-field class="w-100">
 					<mat-label>Image</mat-label>
 					<input matInput type="text" formControlName="base64Image" fxHide />
-          <br />
-          <input type="file" id="image" accept="image/x-png,image/gif,image/jpeg"  (change)="onImageUploaded($event)"  />
+					<br />
+					<div fxLayout="row" class="w-100" fxLayoutGap="1rem">
+						<input #fileInput fxFlex type="file" id="image" accept="image/x-png,image/gif,image/jpeg"  (change)="onImageUploaded($event)"  />
+						<button (click)="removeImage(fileInput)" *ngIf="newTattooForm.controls.base64Image.value" color="warn" class="clickable" mat-icon-button><mat-icon>delete</mat-icon></button>
+					</div>
 				</mat-form-field>
-        <mat-form-field class="w-100">
+				<mat-form-field class="w-100">
 					<mat-label>Image size (percentage)</mat-label>
-					<input matInput type="text" formControlName="imageSizePercent" />
+					<input matInput type="number" step="1" formControlName="imageSizePercent" />
+					<mat-error
+						*ngIf="newTattooForm.controls.imageSizePercent.hasError('min') || newTattooForm.controls.imageSizePercent.hasError('max')">
+						Image size percentage is invalid</mat-error>
 				</mat-form-field>
 				<div fxLayout="row" fxLayoutAlign="center center">
 					<button [disabled]="!newTattooForm.valid" mat-stroked-button color="accent" type="submit">Create</button>
 				</div>
 			</form>
 		</div>
-		<div fxFlex="100%" fxFlex.gt-xs="50%" fxLayout="row" fxLayoutAlign="center start" fxLayoutAlign.gt-xs="end start">
+		<div fxFlex="100%" fxFlex.gt-xs="50%" fxLayout="row" fxLayoutAlign="center start"
+			fxLayoutAlign.gt-xs="end start">
 			<img id="preview" fxFlex="auto" [src]="tattoo.base64Qr | safeUrl" />
     </div>
 		</div>

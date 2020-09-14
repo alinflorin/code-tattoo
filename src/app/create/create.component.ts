@@ -28,13 +28,19 @@ export class CreateComponent implements OnInit {
       base64Image: null,
       imageSizePercent: 20
     };
+
     this.newTattooForm = new FormGroup({
       name: new FormControl(this.tattoo.name, [Validators.required]),
       content: new FormControl(this.tattoo.url, [Validators.required]),
       base64Image: new FormControl(this.tattoo.base64Image),
-      imageSizePercent: new FormControl(this.tattoo.imageSizePercent)
+      imageSizePercent: new FormControl({disabled: true, value: this.tattoo.imageSizePercent}, [
+        Validators.min(1),
+        Validators.max(100)
+      ])
     });
+
     this.tattoo.base64Qr = this.qrService.getBase64Svg(this.tattoo.url);
+
     this.newTattooForm.controls.content.valueChanges.subscribe((x: string) => {
       if (x == null || x.length === 0) {
         this.tattoo.base64Qr = "/assets/images/question-mark.svg";
@@ -42,16 +48,43 @@ export class CreateComponent implements OnInit {
       }
       this.tattoo.base64Qr = this.qrService.getBase64Svg(
         x,
-        this.tattoo.base64Image
+        this.newTattooForm.controls.base64Image.value,
+        +this.newTattooForm.controls.imageSizePercent.value
       );
     });
-    this.newTattooForm.controls.base64Image.valueChanges.subscribe((x: string) => {
-      if (this.tattoo.url == null || this.tattoo.url.length === 0) {
-        this.tattoo.base64Qr = "/assets/images/question-mark.svg";
-        return;
+
+    this.newTattooForm.controls.base64Image.valueChanges.subscribe(
+      (x: string) => {
+        if (x == null || x.length === 0) {
+          this.newTattooForm.controls.imageSizePercent.disable();
+        } else {
+          this.newTattooForm.controls.imageSizePercent.enable();
+        }
+        if (this.tattoo.url == null || this.tattoo.url.length === 0) {
+          this.tattoo.base64Qr = "/assets/images/question-mark.svg";
+          return;
+        }
+        this.tattoo.base64Qr = this.qrService.getBase64Svg(
+          this.tattoo.url,
+          x,
+          +this.newTattooForm.controls.imageSizePercent.value
+        );
       }
-      this.tattoo.base64Qr = this.qrService.getBase64Svg(this.tattoo.url, x);
-    });
+    );
+
+    this.newTattooForm.controls.imageSizePercent.valueChanges.subscribe(
+      (x: number) => {
+        if (this.tattoo.url == null || this.tattoo.url.length === 0) {
+          this.tattoo.base64Qr = "/assets/images/question-mark.svg";
+          return;
+        }
+        this.tattoo.base64Qr = this.qrService.getBase64Svg(
+          this.tattoo.url,
+          this.newTattooForm.controls.base64Image.value,
+          x
+        );
+      }
+    );
   }
 
   onImageUploaded(event: Event): void {
@@ -74,5 +107,11 @@ export class CreateComponent implements OnInit {
     } else {
       this.newTattooForm.controls.base64Image.setValue(null);
     }
+  }
+
+  removeImage(input: HTMLInputElement): void {
+    input.value = null;
+    this.tattoo.base64Image = null;
+    this.newTattooForm.controls.base64Image.setValue(null);
   }
 }
