@@ -13,6 +13,16 @@
 					<input matInput type="text" formControlName="content" />
 					<mat-error *ngIf="newTattooForm.controls.content.hasError('required')">Content is required</mat-error>
 				</mat-form-field>
+        <mat-form-field class="w-100">
+					<mat-label>Image</mat-label>
+					<input matInput type="text" formControlName="base64Image" fxHide />
+          <br />
+          <input type="file" id="image" accept="image/x-png,image/gif,image/jpeg"  (change)="onImageUploaded($event)"  />
+				</mat-form-field>
+        <mat-form-field class="w-100">
+					<mat-label>Image size (percentage)</mat-label>
+					<input matInput type="text" formControlName="imageSizePercent" />
+				</mat-form-field>
 				<div fxLayout="row" fxLayoutAlign="center center">
 					<button [disabled]="!newTattooForm.valid" mat-stroked-button color="accent" type="submit">Create</button>
 				</div>

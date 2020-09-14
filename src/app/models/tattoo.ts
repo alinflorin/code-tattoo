@@ -3,5 +3,6 @@ export interface Tattoo {
   code: string;
   base64Qr?: string;
   base64Image?: string;
+  imageSizePercent?: number;
   url: string;
 }
