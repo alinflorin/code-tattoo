@@ -16,7 +16,7 @@ export class MyTattoosComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.user.pipe(
-      switchMap(u => this.db.collection<Tattoo>('tattoos', ref => ref.where('owner', '==', u.email)).valueChanges())
+      switchMap(u => this.db.collection<Tattoo>('users/' + u.email + '/tattoos').valueChanges())
     ).subscribe(res => {
       this.myTattoos = res;
     });

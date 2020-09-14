@@ -4,11 +4,8 @@
 
     mat-card {
       cursor: pointer;
-
-      mat-card-content {
-        img {
-          
-        }
+      .avatar {
+          background-size: cover;
       }
     }
   }

@@ -31,6 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
+import { CreateComponent } from './create/create.component';
+import { SafeUrl } from './pipes/safe-url';
 
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -46,7 +48,9 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     NotFoundComponent,
     LoginComponent,
     MyTattoosComponent,
-    SignupComponent
+    SignupComponent,
+    CreateComponent,
+    SafeUrl
   ],
   imports: [
     BrowserModule,

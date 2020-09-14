@@ -1,0 +1,8 @@
+<div *ngIf="tattoo" fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutGap="1rem" fxFlexFill>
+    <div fxFlex>1</div>
+    <div fxFlex fxLayout="column" fxLayoutAlign="center">
+      <img fxFlex [src]="tattoo.base64Qr | safeUrl" />
+    </div>
+  </div>
+</div>

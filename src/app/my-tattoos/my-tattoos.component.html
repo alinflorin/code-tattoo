@@ -1,14 +1,25 @@
 <div fxLayout="column" fxLayoutGap="1rem" fxFlexFill>
-	<button mat-stroked-button color="accent">Add</button>
-	<div id="tattoos-list" *ngIf="myTattoos" fxLayout="row wrap">
-		<mat-card *ngFor="let tattoo of myTattoos">
+	<button routerLink="/create" mat-stroked-button color="accent">
+    <mat-icon>add</mat-icon>
+    Create new tattoo
+  </button>
+	<div id="tattoos-list" *ngIf="myTattoos" fxLayout="row wrap" fxLayoutGap="1rem">
+		<mat-card fxFlex="100%" fxFlex.gt-xs="50%" fxFlex.gt-sm="25%" fxFlex.gt-md="10%" *ngFor="let tattoo of myTattoos">
 			<mat-card-header>
+				<img mat-card-avatar [src]="tattoo.base64Qr != null ? tattoo.base64Qr : '/assets/images/question-mark.svg'" alt="Photo of a Shiba Inu">
 				<mat-card-title>{{tattoo.name}}</mat-card-title>
-        <mat-card-subtitle>{{tattoo.code}}</mat-card-subtitle>
+				<mat-card-subtitle>{{tattoo.code}}</mat-card-subtitle>
 			</mat-card-header>
+			<img mat-card-image [src]="tattoo.base64Qr != null ? tattoo.base64Qr : '/assets/images/question-mark.svg'" alt="Photo of a Shiba Inu">
 			<mat-card-content>
-				<img [src]="tattoo.base64Qr != null ? tattoo.base64Qr : '/assets/images/question-mark.svg'" class="tattoo-image" />
+				<p>
+					{{tattoo.url}}
+				</p>
 			</mat-card-content>
+			<mat-card-actions>
+				<button color="primary" mat-stroked-button>LIKE</button>
+				<button color="primary" mat-stroked-button>SHARE</button>
+			</mat-card-actions>
 		</mat-card>
 	</div>
 </div>
