@@ -12,7 +12,6 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 export class CreateComponent implements OnInit {
   tattoo: Tattoo;
   newTattooForm: FormGroup;
-  qrPreview: string;
 
   constructor(private db: AngularFirestore, private qrService: QrService) {}
 
@@ -27,9 +26,13 @@ export class CreateComponent implements OnInit {
       name: new FormControl(this.tattoo.name, [Validators.required]),
       content: new FormControl(this.tattoo.url, [Validators.required])
     });
-    this.qrPreview = this.qrService.getBase64Svg(this.tattoo.url);
+    this.tattoo.base64Qr = this.qrService.getBase64Svg(this.tattoo.url);
     this.newTattooForm.controls.content.valueChanges.subscribe((x: string) => {
-      this.qrPreview = this.qrService.getBase64Svg(x);
+      if (x == null || x.length === 0) {
+        this.tattoo.base64Qr = '/assets/images/question-mark.svg';
+        return;
+      }
+      this.tattoo.base64Qr = this.qrService.getBase64Svg(x);
     });
   }
 }

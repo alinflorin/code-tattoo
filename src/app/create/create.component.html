@@ -1,6 +1,6 @@
 <div *ngIf="tattoo" fxLayout="column" fxFlexFill>
-	<div fxLayout="row" fxLayout.xs="column-reverse" fxLayoutGap="1rem" fxFlexFill>
-		<div fxFlex fxLayout="column" fxLayoutGap="1rem">
+	<div fxLayout="row" fxLayout.xs="column-reverse" fxFlexFill fxLayoutGap="1rem" fxLayoutAlign="space-between">
+		<div fxFlex="100%" fxFlex.gt-xs="50%" fxLayoutGap="1rem" fxLayout="column">
 			<h2>Create a new tattoo</h2>
 			<form novalidate [formGroup]="newTattooForm">
 				<mat-form-field class="w-100">
@@ -18,8 +18,8 @@
 				</div>
 			</form>
 		</div>
-		<div fxFlex fxLayout="column" fxLayoutAlign="start end">
-			<img id="preview" fxFlex [src]="qrPreview | safeUrl" />
+		<div fxFlex="100%" fxFlex.gt-xs="50%" fxLayout="row" fxLayoutAlign="center start" fxLayoutAlign.gt-xs="end start">
+			<img id="preview" fxFlex="auto" [src]="tattoo.base64Qr | safeUrl" />
     </div>
 		</div>
 	</div>
