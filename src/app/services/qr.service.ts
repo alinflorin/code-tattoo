@@ -3,9 +3,11 @@ import { QRCodeSVG } from '@cheprasov/qrcode';
 
 @Injectable({providedIn: 'root'})
 export class QrService {
-  getBase64Svg(content: string, image: string = null, imageSizePercent: number = null): string {
+  getBase64Svg(content: string, fgColor: string = '#000000', bgColor: string = '#ffffff', image: string = null, imageSizePercent: number = null): string {
     const opts: any = {
-      level: 'H'
+      level: 'H',
+      fgColor,
+      bgColor
     };
     if (image) {
       opts.image = {

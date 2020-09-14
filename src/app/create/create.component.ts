@@ -22,69 +22,48 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     this.tattoo = {
       name: "New Tattoo",
-      code: null,
-      url: "https://yahoo.com",
+      code: "asd",
+      content: "https://yahoo.com",
       base64Qr: null,
       base64Image: null,
-      imageSizePercent: 20
+      imageSizePercent: 20,
+      fgColor: "#ffffff",
+      bgColor: "#000000"
     };
 
     this.newTattooForm = new FormGroup({
       name: new FormControl(this.tattoo.name, [Validators.required]),
-      content: new FormControl(this.tattoo.url, [Validators.required]),
+      code: new FormControl({ disabled: true, value: this.tattoo.code }, [
+        Validators.required
+      ]),
+      content: new FormControl(this.tattoo.content, [Validators.required]),
       base64Image: new FormControl(this.tattoo.base64Image),
-      imageSizePercent: new FormControl({disabled: true, value: this.tattoo.imageSizePercent}, [
-        Validators.min(1),
-        Validators.max(100)
-      ])
+      imageSizePercent: new FormControl(
+        { disabled: true, value: this.tattoo.imageSizePercent },
+        [Validators.min(1), Validators.max(100)]
+      ),
+      fgColor: new FormControl(this.tattoo.fgColor),
+      bgColor: new FormControl(this.tattoo.bgColor)
     });
 
-    this.tattoo.base64Qr = this.qrService.getBase64Svg(this.tattoo.url);
+    this.tattoo.base64Qr = this.qrService.getBase64Svg(this.tattoo.content);
 
-    this.newTattooForm.controls.content.valueChanges.subscribe((x: string) => {
-      if (x == null || x.length === 0) {
+    this.newTattooForm.valueChanges.subscribe((x: Tattoo) => {
+      if (x.content == null || x.content.length === 0) {
         this.tattoo.base64Qr = "/assets/images/question-mark.svg";
         return;
       }
+      if (x.base64Image == null || x.base64Image.length === 0) {
+        this.newTattooForm.controls.imageSizePercent.disable();
+      } else {
+        this.newTattooForm.controls.imageSizePercent.enable();
+      }
       this.tattoo.base64Qr = this.qrService.getBase64Svg(
-        x,
-        this.newTattooForm.controls.base64Image.value,
-        +this.newTattooForm.controls.imageSizePercent.value
-      );
+          x.content,
+          x.base64Image,
+          x.imageSizePercent
+        );
     });
-
-    this.newTattooForm.controls.base64Image.valueChanges.subscribe(
-      (x: string) => {
-        if (x == null || x.length === 0) {
-          this.newTattooForm.controls.imageSizePercent.disable();
-        } else {
-          this.newTattooForm.controls.imageSizePercent.enable();
-        }
-        if (this.tattoo.url == null || this.tattoo.url.length === 0) {
-          this.tattoo.base64Qr = "/assets/images/question-mark.svg";
-          return;
-        }
-        this.tattoo.base64Qr = this.qrService.getBase64Svg(
-          this.tattoo.url,
-          x,
-          +this.newTattooForm.controls.imageSizePercent.value
-        );
-      }
-    );
-
-    this.newTattooForm.controls.imageSizePercent.valueChanges.subscribe(
-      (x: number) => {
-        if (this.tattoo.url == null || this.tattoo.url.length === 0) {
-          this.tattoo.base64Qr = "/assets/images/question-mark.svg";
-          return;
-        }
-        this.tattoo.base64Qr = this.qrService.getBase64Svg(
-          this.tattoo.url,
-          this.newTattooForm.controls.base64Image.value,
-          x
-        );
-      }
-    );
   }
 
   onImageUploaded(event: Event): void {

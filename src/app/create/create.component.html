@@ -2,37 +2,54 @@
 	<div fxLayout="row" fxLayout.xs="column-reverse" fxFlexFill fxLayoutGap="1rem" fxLayoutAlign="space-between">
 		<div fxFlex="100%" fxFlex.gt-xs="50%" fxLayoutGap="1rem" fxLayout="column">
 			<h2>Create a new tattoo</h2>
-			<form novalidate [formGroup]="newTattooForm">
+			<form novalidate [formGroup]="newTattooForm" fxLayout="column" fxLayoutGap="1rem">
 				<mat-form-field class="w-100">
 					<mat-label>Name</mat-label>
 					<input required matInput type="text" formControlName="name" />
 					<mat-error *ngIf="newTattooForm.controls.name.hasError('required')">Name is required</mat-error>
 				</mat-form-field>
 				<mat-form-field class="w-100">
-					<mat-label>Content</mat-label>
-					<input required matInput type="text" formControlName="content" />
-					<mat-error *ngIf="newTattooForm.controls.content.hasError('required')">Content is required
-					</mat-error>
+					<mat-label>Code</mat-label>
+					<input required matInput type="text" formControlName="code" />
 				</mat-form-field>
-				<mat-form-field class="w-100">
-					<mat-label>Image</mat-label>
-					<input matInput type="text" formControlName="base64Image" fxHide />
-					<br />
-					<div fxLayout="row" class="w-100" fxLayoutGap="1rem">
-						<input #fileInput fxFlex type="file" id="image" accept="image/x-png,image/gif,image/jpeg"  (change)="onImageUploaded($event)"  />
-						<button (click)="removeImage(fileInput)" *ngIf="newTattooForm.controls.base64Image.value" color="warn" class="clickable" mat-icon-button><mat-icon>delete</mat-icon></button>
+					<mat-form-field class="w-100">
+						<mat-label>Content</mat-label>
+						<input required matInput type="text" formControlName="content" />
+						<mat-error *ngIf="newTattooForm.controls.content.hasError('required')">Content is required
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field class="w-100 upload-form-field">
+						<mat-label>Image</mat-label>
+						<input matInput type="text" formControlName="base64Image" fxHide />
+						<br />
+						<div fxLayout="row" class="w-100" fxLayoutGap="1rem">
+							<input #fileInput fxHide type="file" id="image" accept="image/x-png,image/gif,image/jpeg"  (change)="onImageUploaded($event)"  />
+              <button mat-stroked-button (click)="fileInput.click()" fxFlex>Choose image</button>
+							<button (click)="removeImage(fileInput)" *ngIf="newTattooForm.controls.base64Image.value" color="warn" class="clickable" mat-icon-button><mat-icon>delete</mat-icon></button>
+						</div>
+					</mat-form-field>
+
+					<mat-expansion-panel [expanded]="true" *ngIf="newTattooForm.controls.base64Image.value">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								Image settings
+							</mat-panel-title>
+							<mat-panel-description>
+								Image-related settings
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+						<mat-form-field class="w-100">
+							<mat-label>Image size (percentage)</mat-label>
+							<input matInput type="number" step="1" formControlName="imageSizePercent" />
+							<mat-error
+								*ngIf="newTattooForm.controls.imageSizePercent.hasError('min') || newTattooForm.controls.imageSizePercent.hasError('max')">
+								Image size percentage is invalid</mat-error>
+						</mat-form-field>
+					</mat-expansion-panel>
+
+					<div fxLayout="row" fxLayoutAlign="center center">
+						<button [disabled]="!newTattooForm.valid" mat-stroked-button color="accent" type="submit">Create</button>
 					</div>
-				</mat-form-field>
-				<mat-form-field class="w-100">
-					<mat-label>Image size (percentage)</mat-label>
-					<input matInput type="number" step="1" formControlName="imageSizePercent" />
-					<mat-error
-						*ngIf="newTattooForm.controls.imageSizePercent.hasError('min') || newTattooForm.controls.imageSizePercent.hasError('max')">
-						Image size percentage is invalid</mat-error>
-				</mat-form-field>
-				<div fxLayout="row" fxLayoutAlign="center center">
-					<button [disabled]="!newTattooForm.valid" mat-stroked-button color="accent" type="submit">Create</button>
-				</div>
 			</form>
 		</div>
 		<div fxFlex="100%" fxFlex.gt-xs="50%" fxLayout="row" fxLayoutAlign="center start"

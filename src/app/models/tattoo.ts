@@ -4,5 +4,7 @@ export interface Tattoo {
   base64Qr?: string;
   base64Image?: string;
   imageSizePercent?: number;
-  url: string;
+  content: string;
+  fgColor?: string;
+  bgColor?: string;
 }
