@@ -10,7 +10,7 @@ import { Color } from "@angular-material-components/color-picker";
   styleUrls: ["./create.component.scss"]
 })
 export class CreateComponent implements OnInit {
-  tattoo: AnalyserNode;
+  tattoo: any;
   newTattooForm: FormGroup;
 
   constructor(
