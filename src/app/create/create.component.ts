@@ -1,8 +1,8 @@
 import { Component, OnInit, NgZone } from "@angular/core";
-import { Tattoo } from "../models/tattoo";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { QrService } from "../services/qr.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Color } from "@angular-material-components/color-picker";
 
 @Component({
   selector: "app-create",
@@ -10,7 +10,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
   styleUrls: ["./create.component.scss"]
 })
 export class CreateComponent implements OnInit {
-  tattoo: Tattoo;
+  tattoo: AnalyserNode;
   newTattooForm: FormGroup;
 
   constructor(
@@ -27,8 +27,8 @@ export class CreateComponent implements OnInit {
       base64Qr: null,
       base64Image: null,
       imageSizePercent: 20,
-      fgColor: "#ffffff",
-      bgColor: "#000000"
+      fgColor: new Color(0, 0, 0, 1),
+      bgColor: new Color(255, 255, 255, 1)
     };
 
     this.newTattooForm = new FormGroup({
@@ -46,16 +46,27 @@ export class CreateComponent implements OnInit {
       bgColor: new FormControl(this.tattoo.bgColor)
     });
 
-    this.tattoo.base64Qr = this.qrService.getBase64Svg(this.tattoo.content);
+    this.tattoo.base64Qr = this.qrService.getBase64Svg(
+      this.tattoo.content,
+      "#" + this.tattoo.fgColor.hex,
+      "#" + this.tattoo.bgColor.hex,
+      this.tattoo.base64Image,
+      this.tattoo.imageSizePercent
+    );
 
-    this.newTattooForm.valueChanges.subscribe((x) => {
-      if (x.content == null || x.content.length === 0) {
+    this.newTattooForm.valueChanges.subscribe(x => {
+      if (
+        x.content == null ||
+        x.content.length === 0 ||
+        !this.newTattooForm.valid
+      ) {
         this.tattoo.base64Qr = "/assets/images/question-mark.svg";
         return;
       }
-      console.log(x);
       this.tattoo.base64Qr = this.qrService.getBase64Svg(
         x.content,
+        "#" + x.fgColor.hex,
+        "#" + x.bgColor.hex,
         x.base64Image,
         x.imageSizePercent
       );
