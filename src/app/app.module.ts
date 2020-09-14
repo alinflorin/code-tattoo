@@ -63,7 +63,6 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFireAuthGuardModule,
     AngularFirestoreModule,
 
 
