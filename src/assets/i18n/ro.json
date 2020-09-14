@@ -3,5 +3,6 @@
     "ui.pwa.reload": "Reîncărcare",
     "ui.header.language": "Limba",
     "ui.pwa.install_pwa": "Instalare ca aplicație",
-    "ui.pwa.install": "Instalare"
+    "ui.pwa.install": "Instalare",
+    "ui.header.logout": "Ieșire"
 }

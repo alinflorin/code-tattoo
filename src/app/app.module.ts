@@ -30,6 +30,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -78,6 +79,7 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     MatButtonModule,
     MatInputModule,
     MatDividerModule,
+    MatCardModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

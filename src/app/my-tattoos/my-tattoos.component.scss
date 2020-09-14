@@ -1,0 +1,15 @@
+:host {
+  #tattoos-list {
+    overflow: auto;
+
+    mat-card {
+      cursor: pointer;
+
+      mat-card-content {
+        img {
+          
+        }
+      }
+    }
+  }
+}

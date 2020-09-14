@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       )
     ).subscribe(
       () => {
-        this.router.navigate(["/"]);
+        this.router.navigate(["/my-tattoos"]);
       },
       e => {
         this.loginForm.setErrors({
@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
       )
     ).subscribe(
       () => {
-        this.router.navigate(["/"]);
+        this.router.navigate(["/my-tattoos"]);
       },
       e => {
         this.loginForm.setErrors({
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
   loginWithGoogle(): void {
     from(this.afAuth.signInWithPopup(new auth.GoogleAuthProvider())).subscribe(
       () => {
-        this.router.navigate(["/"]);
+        this.router.navigate(["/my-tattoos"]);
       },
       e => {
         this.loginForm.setErrors({
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
       this.afAuth.signInWithPopup(new auth.FacebookAuthProvider())
     ).subscribe(
       () => {
-        this.router.navigate(["/"]);
+        this.router.navigate(["/my-tattoos"]);
       },
       e => {
         this.loginForm.setErrors({
@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
   loginWithGithub(): void {
     from(this.afAuth.signInWithPopup(new auth.GithubAuthProvider())).subscribe(
       () => {
-        this.router.navigate(["/"]);
+        this.router.navigate(["/my-tattoos"]);
       },
       e => {
         this.loginForm.setErrors({

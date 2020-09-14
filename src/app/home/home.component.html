@@ -1,1 +1,8 @@
 <p>home works!</p>
+<div *ngIf="auth.user | async" fxLayout="column" fxLayoutGap="1rem">
+
+	<h2>Welcome, {{(auth.user | async)?.displayName}}!</h2>
+	<button
+   routerLink="my-tattoos" mat-stroked-button color="primary">My tattoos</button>
+
+</div>

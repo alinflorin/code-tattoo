@@ -3,5 +3,6 @@
     "ui.pwa.reload": "Reload",
     "ui.header.language": "Language",
     "ui.pwa.install_pwa": "Install app",
-    "ui.pwa.install": "Install"
+    "ui.pwa.install": "Install",
+    "ui.header.logout": "Logout"
 }

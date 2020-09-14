@@ -1,8 +1,9 @@
 <mat-toolbar fxLayout="row" fxLayoutAlign="start center" color="primary">
     <span routerLink="/" id="logo" class="clickable">CodeTattoo</span>
     <div fxFlex></div>
+    <div id="user-email">{{(auth.user | async)?.email}}</div>
     <button mat-icon-button [matMenuTriggerFor]="settings">
-        <mat-icon>settings</mat-icon>
+        <mat-icon>{{(auth.user | async) ? 'account_circle' : 'settings'}}</mat-icon>
       </button>
       <mat-menu #settings="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="languages">

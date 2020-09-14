@@ -1,1 +1,14 @@
-mt
+<div fxLayout="column" fxLayoutGap="1rem" fxFlexFill>
+	<button mat-stroked-button color="accent">Add</button>
+	<div id="tattoos-list" *ngIf="myTattoos" fxLayout="row wrap">
+		<mat-card *ngFor="let tattoo of myTattoos">
+			<mat-card-header>
+				<mat-card-title>{{tattoo.name}}</mat-card-title>
+        <mat-card-subtitle>{{tattoo.code}}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-content>
+				<img [src]="tattoo.base64Qr != null ? tattoo.base64Qr : '/assets/images/question-mark.svg'" class="tattoo-image" />
+			</mat-card-content>
+		</mat-card>
+	</div>
+</div>
