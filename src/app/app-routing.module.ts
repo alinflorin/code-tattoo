@@ -8,7 +8,6 @@ import { AngularFireAuthGuard, isNotAnonymous } from '@angular/fire/auth-guard';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 import { CreateComponent } from './create/create.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { EmailSentComponent } from './email-sent/email-sent.component';
 
@@ -25,10 +24,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  },
-  {
-    path: 'reset-password',
-    component: ResetPasswordComponent
   },
   {
     path: 'forgot-password',
