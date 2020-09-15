@@ -4,7 +4,7 @@ import { QrService } from "../services/qr.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Color } from "@angular-material-components/color-picker";
 import { ContentType } from "../models/content-type";
-import * as uuid from 'uuid';
+import * as shortid from 'shortid';
 
 @Component({
   selector: "app-create",
@@ -16,6 +16,7 @@ export class CreateComponent implements OnInit {
   newTattooForm: FormGroup;
   contentType = ContentType;
 
+
   constructor(
     private db: AngularFirestore,
     private qrService: QrService,
@@ -23,9 +24,10 @@ export class CreateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
     this.tattoo = {
       name: "New Tattoo",
-      code: "asd",
+      code: shortid.generate(),
       content: null,
       base64Qr: null,
       base64Image: null,
@@ -133,5 +135,10 @@ export class CreateComponent implements OnInit {
       this.newTattooForm.controls.content.disable({emitEvent: false});
       this.newTattooForm.controls.content.setValue(window.location.origin + '/view/' + this.tattoo.code);
     }
+  }
+
+  regenerateUuid(): void {
+    this.newTattooForm.controls.code.setValue(shortid.generate());
+    this.newTattooForm.controls.content.setValue(window.location.origin + '/view/' + this.tattoo.code);
   }
 }
