@@ -7,8 +7,9 @@ import { MyTattoosComponent } from './my-tattoos/my-tattoos.component';
 import { AngularFireAuthGuard, isNotAnonymous } from '@angular/fire/auth-guard';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
-import { SignupComponent } from './signup/signup.component';
 import { CreateComponent } from './create/create.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 export const redirectAnonymousTo = (redirect: any[]) => 
   pipe(isNotAnonymous, map(loggedIn => loggedIn || redirect)
@@ -25,8 +26,12 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'signup',
-    component: SignupComponent
+    path: 'reset-password',
+    component: ResetPasswordComponent
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
   },
   {
     path: 'my-tattoos',

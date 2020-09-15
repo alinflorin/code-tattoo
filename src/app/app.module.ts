@@ -26,7 +26,6 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
@@ -52,7 +51,6 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     NotFoundComponent,
     LoginComponent,
     MyTattoosComponent,
-    SignupComponent,
     CreateComponent,
     SafeUrl,
     ForgotPasswordComponent,
