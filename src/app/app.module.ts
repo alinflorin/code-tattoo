@@ -35,6 +35,8 @@ import { CreateComponent } from './create/create.component';
 import { SafeUrl } from './pipes/safe-url';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -52,7 +54,9 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     MyTattoosComponent,
     SignupComponent,
     CreateComponent,
-    SafeUrl
+    SafeUrl,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
