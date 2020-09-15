@@ -4,7 +4,7 @@ import { QrService } from "../services/qr.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Color } from "@angular-material-components/color-picker";
 import { ContentType } from "../models/content-type";
-
+import * as uuid from 'uuid';
 
 @Component({
   selector: "app-create",
