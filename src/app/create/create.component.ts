@@ -3,6 +3,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { QrService } from "../services/qr.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Color } from "@angular-material-components/color-picker";
+import { ContentType } from "../models/content-type";
 
 @Component({
   selector: "app-create",
@@ -28,7 +29,8 @@ export class CreateComponent implements OnInit {
       base64Image: null,
       imageSizePercent: 20,
       fgColor: new Color(0, 0, 0, 1),
-      bgColor: new Color(255, 255, 255, 1)
+      bgColor: new Color(255, 255, 255, 1),
+      contentType: ContentType.ManagedContent
     };
 
     this.newTattooForm = new FormGroup({
