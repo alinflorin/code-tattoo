@@ -23,6 +23,7 @@
     "@firebase/firestore": "1.16.7",
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
+    "core-js": "2.6.11",
     "firebase": "7.20.0",
     "rxjs": "6.6.3",
     "tslib": "2.0.1",
