@@ -10,6 +10,7 @@ import { pipe } from 'rxjs';
 import { CreateComponent } from './create/create.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { EmailSentComponent } from './email-sent/email-sent.component';
 
 export const redirectAnonymousTo = (redirect: any[]) => 
   pipe(isNotAnonymous, map(loggedIn => loggedIn || redirect)
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent
+  },
+  {
+    path: 'email-sent',
+    component: EmailSentComponent
   },
   {
     path: 'my-tattoos',

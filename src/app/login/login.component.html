@@ -24,6 +24,9 @@
       <div fxLayout="row" fxLayoutAlign="center center">
 				<button (click)="signup()" id="signup-button" [disabled]="!loginForm.valid" mat-stroked-button color="primary" type="button">Create account</button>
 			</div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+				<a routerLink="/forgot-password" color="primary">Forgot password?</a>
+			</div>
 		</form>
 		<mat-divider></mat-divider>
 		<div fxLayout="row" fxLayoutAlign="space-evenly">
