@@ -36,6 +36,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { EmailSentComponent } from './email-sent/email-sent.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -89,6 +90,7 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     MatDividerModule,
     MatCardModule,
     MatExpansionModule,
+    MatRadioModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

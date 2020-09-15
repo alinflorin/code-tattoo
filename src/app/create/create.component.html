@@ -12,13 +12,12 @@
 					<mat-label>Code</mat-label>
 					<input required matInput type="text" formControlName="code" />
 				</mat-form-field>
-					<mat-form-field>
-						<mat-label>Content Type</mat-label>
-						<mat-button-toggle-group formControlName="contentType">
-							<mat-button-toggle [value]="0">Managed content</mat-button-toggle>
-							<mat-button-toggle [value]="1">Custom URL</mat-button-toggle>
-						</mat-button-toggle-group>
-					</mat-form-field>
+					<div>
+						<mat-radio-group formControlName="contentType" (change)="onContentTypeChange()">
+							<mat-radio-button class="mr-1" [value]="contentType.ManagedContent">Managed Content</mat-radio-button>
+							<mat-radio-button [value]="contentType.CustomUrl">Custom URL</mat-radio-button>
+						</mat-radio-group>
+					</div>
 					<mat-form-field class="w-100">
 						<mat-label>Content</mat-label>
 						<input required matInput type="text" formControlName="content" />

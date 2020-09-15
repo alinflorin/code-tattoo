@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Color } from "@angular-material-components/color-picker";
 import { ContentType } from "../models/content-type";
 
+
 @Component({
   selector: "app-create",
   templateUrl: "./create.component.html",
@@ -13,6 +14,7 @@ import { ContentType } from "../models/content-type";
 export class CreateComponent implements OnInit {
   tattoo: any;
   newTattooForm: FormGroup;
+  contentType = ContentType;
 
   constructor(
     private db: AngularFirestore,
@@ -24,7 +26,7 @@ export class CreateComponent implements OnInit {
     this.tattoo = {
       name: "New Tattoo",
       code: "asd",
-      content: "https://yahoo.com",
+      content: null,
       base64Qr: null,
       base64Image: null,
       imageSizePercent: 20,
@@ -32,20 +34,24 @@ export class CreateComponent implements OnInit {
       bgColor: new Color(255, 255, 255, 1),
       contentType: ContentType.ManagedContent
     };
+    this.tattoo.content = window.location.origin + '/view/' + this.tattoo.code;
 
     this.newTattooForm = new FormGroup({
       name: new FormControl(this.tattoo.name, [Validators.required]),
       code: new FormControl({ disabled: true, value: this.tattoo.code }, [
         Validators.required
       ]),
-      content: new FormControl(this.tattoo.content, [Validators.required]),
+      content: new FormControl({disabled: true, value: this.tattoo.content}, [Validators.required]),
       base64Image: new FormControl(this.tattoo.base64Image),
       imageSizePercent: new FormControl(
         { disabled: true, value: this.tattoo.imageSizePercent },
         [Validators.min(1), Validators.max(100)]
       ),
       fgColor: new FormControl(this.tattoo.fgColor),
-      bgColor: new FormControl(this.tattoo.bgColor)
+      bgColor: new FormControl(this.tattoo.bgColor),
+      contentType: new FormControl(this.tattoo.contentType, [
+        Validators.required
+      ])
     });
 
     this.tattoo.base64Qr = this.qrService.getBase64Svg(
@@ -56,7 +62,8 @@ export class CreateComponent implements OnInit {
       this.tattoo.imageSizePercent
     );
 
-    this.newTattooForm.valueChanges.subscribe(x => {
+    this.newTattooForm.valueChanges.subscribe(() => {
+      const x = this.newTattooForm.getRawValue();
       if (
         x.content == null ||
         x.content.length === 0 ||
@@ -74,7 +81,8 @@ export class CreateComponent implements OnInit {
       );
     });
 
-    this.newTattooForm.controls.base64Image.valueChanges.subscribe(x => {
+    this.newTattooForm.controls.base64Image.valueChanges.subscribe(() => {
+      const x = this.newTattooForm.getRawValue();
       if (x == null || x.length === 0) {
         this.newTattooForm.controls.imageSizePercent.disable({
           emitEvent: false
@@ -113,5 +121,17 @@ export class CreateComponent implements OnInit {
     input.value = null;
     this.tattoo.base64Image = null;
     this.newTattooForm.controls.base64Image.setValue(null);
+  }
+
+  onContentTypeChange(): void {
+    if (
+      this.newTattooForm.controls.contentType.value === ContentType.CustomUrl
+    ) {
+      this.newTattooForm.controls.content.enable({emitEvent: false});
+      this.newTattooForm.controls.content.setValue('https://example.com');
+    } else {
+      this.newTattooForm.controls.content.disable({emitEvent: false});
+      this.newTattooForm.controls.content.setValue(window.location.origin + '/view/' + this.tattoo.code);
+    }
   }
 }
