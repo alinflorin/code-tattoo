@@ -2,6 +2,8 @@
   #preview {
     max-width: calc(100vh - 150px);
     max-height: calc(100vh - 150px);
+    min-width: 250px;
+    min-height: 250px;
   }
 
   
