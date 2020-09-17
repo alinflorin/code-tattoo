@@ -30,15 +30,11 @@
 				</mat-form-field>
 				<mat-form-field>
 					<mat-label>Foregound color</mat-label>
-					<input matInput [ngxMatColorPicker]="fgpicker" formControlName="fgColor">
-					<ngx-mat-color-toggle matSuffix [for]="fgpicker"></ngx-mat-color-toggle>
-					<ngx-mat-color-picker #fgpicker [touchUi]="true" color="accent"></ngx-mat-color-picker>
+					<input matInput  formControlName="fgColor">
 				</mat-form-field>
 				<mat-form-field>
 					<mat-label>Background color</mat-label>
-					<input matInput [ngxMatColorPicker]="bgpicker" formControlName="bgColor">
-					<ngx-mat-color-toggle matSuffix [for]="bgpicker"></ngx-mat-color-toggle>
-					<ngx-mat-color-picker #bgpicker [touchUi]="true" color="accent"></ngx-mat-color-picker>
+					<input matInput  formControlName="bgColor">
 				</mat-form-field>
 				<mat-form-field class="w-100 upload-form-field">
 					<mat-label>Image</mat-label>

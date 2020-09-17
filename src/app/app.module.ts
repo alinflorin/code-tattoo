@@ -33,7 +33,6 @@ import { MatCardModule } from '@angular/material/card';
 import { CreateComponent } from './create/create.component';
 import { SafeUrl } from './pipes/safe-url';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { EmailSentComponent } from './email-sent/email-sent.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -78,7 +77,6 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
       defaultLanguage: 'en'
     }),
     FlexLayoutModule,
-    NgxMatColorPickerModule,
 
     MatToolbarModule,
     MatFormFieldModule,
@@ -95,7 +93,6 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
-    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
   ],
   bootstrap: [AppComponent]
 })

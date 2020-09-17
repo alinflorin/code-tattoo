@@ -2,7 +2,6 @@ import { Component, OnInit, NgZone } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { QrService } from "../services/qr.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Color } from "@angular-material-components/color-picker";
 import { ContentType } from "../models/content-type";
 import * as shortid from 'shortid';
 
@@ -32,8 +31,8 @@ export class CreateComponent implements OnInit {
       base64Qr: null,
       base64Image: null,
       imageSizePercent: 20,
-      fgColor: new Color(0, 0, 0, 1),
-      bgColor: new Color(255, 255, 255, 1),
+      fgColor: '#000000',
+      bgColor: '#ffffff',
       contentType: ContentType.ManagedContent
     };
     this.tattoo.content = window.location.origin + '/view/' + this.tattoo.code;
@@ -58,8 +57,8 @@ export class CreateComponent implements OnInit {
 
     this.tattoo.base64Qr = this.qrService.getBase64Svg(
       this.tattoo.content,
-      "#" + this.tattoo.fgColor.hex,
-      "#" + this.tattoo.bgColor.hex,
+      this.tattoo.fgColor,
+      this.tattoo.bgColor,
       this.tattoo.base64Image,
       this.tattoo.imageSizePercent
     );
@@ -76,8 +75,8 @@ export class CreateComponent implements OnInit {
       }
       this.tattoo.base64Qr = this.qrService.getBase64Svg(
         x.content,
-        "#" + x.fgColor.hex,
-        "#" + x.bgColor.hex,
+        x.fgColor,
+        x.bgColor,
         x.base64Image,
         x.imageSizePercent
       );
