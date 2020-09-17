@@ -138,6 +138,6 @@ export class CreateComponent implements OnInit {
 
   regenerateUuid(): void {
     this.newTattooForm.controls.code.setValue(shortid.generate());
-    this.newTattooForm.controls.content.setValue(window.location.origin + '/view/' + this.tattoo.code);
+    this.newTattooForm.controls.content.setValue(window.location.origin + '/view/' + this.newTattooForm.controls.code.value);
   }
 }
